@@ -2,6 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="true" />
+
+
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:remove="android:maxSdkVersion" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" tools:remove="android:maxSdkVersion"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,10 +29,10 @@
         android:name=".app.ThereYouAreApplication"
         android:theme="@style/Theme.ThereYouAre"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.ThereYouAre">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +40,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".data.ForegroundLocationService"
+            android:foregroundServiceType="location"/>
     </application>
 
 </manifest>

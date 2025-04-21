@@ -12,6 +12,8 @@ playServicesLocation = "21.3.0"
 timber = "5.0.1"
 googleServicesPlugin = "4.4.2"
 firebaseBom = "33.12.0"
+firebaseAuth = "9.0.0"
+hilt = "2.56.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,10 +33,17 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-ui-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseAuth" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-play-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
+hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp-plugin = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.27" }

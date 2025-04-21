@@ -1,4 +1,4 @@
-package com.chadbingham.thereyouare.data.manager
+package com.chadbingham.thereyouare.data
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,18 +7,20 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.os.Looper
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import javax.inject.Inject
 
-class AppLocationManager(private val context: Context) {
+class AppLocationManager @Inject constructor(@ApplicationContext private val context: Context) {
 
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     private lateinit var locationCallback: LocationCallback
@@ -37,13 +39,13 @@ class AppLocationManager(private val context: Context) {
      */
     @SuppressLint("MissingPermission")
     fun startLocationUpdates(listener: LocationUpdateListener) {
-        if (!checkLocationPermission()) {
-            Log.e(TAG, "Location permission not granted")
+        if (!checkLocationPermission(context)) {
+            Timber.e("Location permission not granted")
             return
         }
 
         if (isRequestingLocationUpdates) {
-            Log.w(TAG, "Already requesting location updates")
+            Timber.w("Already requesting location updates")
             return
         }
 
@@ -61,14 +63,13 @@ class AppLocationManager(private val context: Context) {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let { location ->
-                    Log.d(TAG, "Location Update: $location")
+                    Timber.d("Location Update: $location")
                     listener.onLocationUpdate(location)
                 }
             }
         }
 
-        // Start requesting location updates using the FusedLocationProv
-        // iderClient.
+        // Start requesting location updates using the FusedLocationProviderClient.
         fusedLocationClient.requestLocationUpdates(
             locationRequest,
             locationCallback,
@@ -76,12 +77,9 @@ class AppLocationManager(private val context: Context) {
         )
     }
 
-    /**
-     * Stops location updates.
-     */
     fun stopLocationUpdates() {
         if (!isRequestingLocationUpdates) {
-            Log.w(TAG, "Not currently requesting location updates")
+            Timber.w("Not currently requesting location updates")
             return
         }
 
@@ -96,17 +94,17 @@ class AppLocationManager(private val context: Context) {
      */
     @SuppressLint("MissingPermission")
     fun getLastKnownLocation(listener: LocationUpdateListener) {
-        if (!checkLocationPermission()) {
-            Log.e(TAG, "Location permission not granted")
+        if (!checkLocationPermission(context)) {
+            Timber.e("Location permission not granted")
             return
         }
         scope.launch {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
-                    Log.d(TAG, "Last Known Location: $it")
+                    Timber.d("Last Known Location: $it")
                     listener.onLocationUpdate(it)
                 } ?: run {
-                    Log.d(TAG, "Last known location is null")
+                    Timber.d("Last known location is null")
                 }
             }
         }
@@ -117,7 +115,7 @@ class AppLocationManager(private val context: Context) {
      *
      * @return True if the permission is granted, false otherwise.
      */
-    private fun checkLocationPermission(): Boolean {
+    private fun checkLocationPermission(context: Context): Boolean {
         return ActivityCompat.checkSelfPermission(
             context,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -132,9 +130,6 @@ class AppLocationManager(private val context: Context) {
      *
      * @return boolean
      */
-    fun hasLocationPermission(): Boolean = checkLocationPermission()
+    fun hasLocationPermission(context: Context): Boolean = checkLocationPermission(context)
 
-    companion object {
-        private const val TAG = "com.chadbingham.thereyouare.data.manager.AppLocationManager"
-    }
 }

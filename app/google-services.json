@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "422549763073",
+    "firebase_url": "https://thereyouare-5640e-default-rtdb.firebaseio.com",
     "project_id": "thereyouare-5640e",
     "storage_bucket": "thereyouare-5640e.firebasestorage.app"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.chadbingham.thereyouare"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "422549763073-k57t40v8ngjnk7tdu58msbmja4gr1h84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chadbingham.thereyouare",
+            "certificate_hash": "3debb9665ac45d1a86d643a81170ba61973fc07f"
+          }
+        },
+        {
+          "client_id": "422549763073-215etaidtpbkpocs8vjlcbcishd28rr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBPSDZFTQXgVt-8pI0HkcI-Ocf0vI2eEWk"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422549763073-215etaidtpbkpocs8vjlcbcishd28rr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

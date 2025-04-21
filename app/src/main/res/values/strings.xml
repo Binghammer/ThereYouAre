@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ThereYouAre</string>
+    <string name="permission_required">Location Permission Required</string>
+    <string name="permission_rationale">This app needs access to your location to provide the core functionality.</string>
+    <string name="permission_warning">Without location access, this app will be unable to determine where you are.</string>
+    <string name="continue_text">Continue</string>
+    <string name="cancel">Cancel</string>
+    <string name="request_permissions">Request Permissions</string>
 </resources>
